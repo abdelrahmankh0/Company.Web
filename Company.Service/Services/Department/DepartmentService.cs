@@ -24,7 +24,7 @@ namespace Company.Service.Services
                 Name = department.Name,
                 CreateAt = DateTime.Now
             };
-            _unitOfWork.departmentRepository.Add(mappedDepartment);
+            _unitOfWork.DepartmentRepository.Add(mappedDepartment);
 
             _unitOfWork.Complete();
 
@@ -32,13 +32,13 @@ namespace Company.Service.Services
 
 		public void Delete(Department department)
         {
-            _unitOfWork.departmentRepository.Delete(department);
+            _unitOfWork.DepartmentRepository.Delete(department);
             _unitOfWork.Complete();
         }
 
         public IEnumerable<Department> GetAll()
         {
-            var Department = _unitOfWork.departmentRepository.GetAll();
+            var Department = _unitOfWork.DepartmentRepository.GetAll();
             return Department;
         }
 
@@ -48,7 +48,7 @@ namespace Company.Service.Services
                 return null;
 
 
-            var department = _unitOfWork.departmentRepository.GetById(id.Value);
+            var department = _unitOfWork.DepartmentRepository.GetById(id.Value);
 
             if (department is null)
                 return null;
@@ -59,7 +59,7 @@ namespace Company.Service.Services
         public void Update(Department department)
         {
          
-           _unitOfWork.departmentRepository.Update(department);
+           _unitOfWork.DepartmentRepository.Update(department);
             _unitOfWork.Complete();
 
         }

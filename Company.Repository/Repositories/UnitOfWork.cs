@@ -19,8 +19,8 @@ namespace Company.Repository.Repositories
 			DepartmentRepository = new DepartmentRepository(context);
 			EmployeeRepository = new EmployeeRepository(context);
 		}
-        public IDepartmentRepository departmentRepository { get ; set ; }
-		public IEmployeeRepository employeeRepository { get ; set; }
+        public IDepartmentRepository DepartmentRepository { get ; set ; }
+		public IEmployeeRepository EmployeeRepository { get ; set; }
 
 		public int Complete()
 			=> _context.SaveChanges();

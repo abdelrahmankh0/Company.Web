@@ -8,16 +8,16 @@ namespace Company.Web.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly DepartmentService departmentService;
+        private readonly IDepartmentService _departmentService;
 
-        public DepartmentController(DepartmentService departmentService)
+        public DepartmentController(IDepartmentService departmentService)
         {
-            departmentService = departmentService;
+            _departmentService = departmentService;
         }
 
         public IActionResult Index()
         {
-            var department = departmentService.GetAll();
+            var department = _departmentService.GetAll();
             return View(department);
         }
         [HttpGet]
@@ -33,7 +33,7 @@ namespace Company.Web.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    departmentService.Add(department);
+                    _departmentService.Add(department);
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -52,7 +52,7 @@ namespace Company.Web.Controllers
 
         public IActionResult Details(int? id,string viewName="Details")
         {
-			var department = departmentService.GetById(id);
+			var department = _departmentService.GetById(id);
 
             if (department is null)
                 return RedirectToAction("Not Found Page",null,"Home");
@@ -74,21 +74,21 @@ namespace Company.Web.Controllers
             if(department.Id != id.Value)
 				return RedirectToAction("Not Found Page", null, "Home");
 
-            departmentService.Update(department);
+            _departmentService.Update(department);
 
             return RedirectToAction(nameof(Index));
 
 		}
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Delete(int id)
         {
-			var department = departmentService.GetById(id);
+			var department = _departmentService.GetById(id);
 
 			if (department is null)
 				return RedirectToAction("Not Found Page", null, "Home");
 
-            departmentService.Delete(department);
+            _departmentService.Delete(department);
             return RedirectToAction(nameof(Index));
 
 
