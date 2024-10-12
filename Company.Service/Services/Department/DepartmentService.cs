@@ -1,5 +1,6 @@
 ﻿
 
+using Azure.Core.Pipeline;
 using Company.Data.Models;
 using Company.Repository.Interfaces;
 using Company.Service.Interfaces;
@@ -8,37 +9,59 @@ namespace Company.Service.Services
 {
     public class DepartmentService : IDepartmentService
     {
-        private readonly IDepartmentRepository departmentRepository;
+		private readonly IUnitOfWork _unitOfWork;
 
-        public DepartmentService(IDepartmentRepository departmentRepository)
+		public DepartmentService(IUnitOfWork unitOfWork)
         {
-            departmentRepository = departmentRepository;
-        }
+			_unitOfWork = unitOfWork;
+		}
 
-        public void Add(Department entity)
+        public void Add(Department department)
         {
-            throw new NotImplementedException();
-        }
+            var mappedDepartment = new Department
+            {
+                Code = department.Code,
+                Name = department.Name,
+                CreateAt = DateTime.Now
+            };
+            _unitOfWork.departmentRepository.Add(mappedDepartment);
 
-        public void Delete(Department entity)
+            _unitOfWork.Complete();
+
+		}
+
+		public void Delete(Department department)
         {
-            throw new NotImplementedException();
+            _unitOfWork.departmentRepository.Delete(department);
+            _unitOfWork.Complete();
         }
 
         public IEnumerable<Department> GetAll()
         {
-            var Department = departmentRepository.GetAll();
+            var Department = _unitOfWork.departmentRepository.GetAll();
             return Department;
         }
 
-        public Department GetById(int id)
+        public Department GetById(int? id)
         {
-            throw new NotImplementedException();
+            if (id is null)
+                return null;
+
+
+            var department = _unitOfWork.departmentRepository.GetById(id.Value);
+
+            if (department is null)
+                return null;
+
+            return department;
         }
 
-        public void Update(Department entity)
+        public void Update(Department department)
         {
-            throw new NotImplementedException();
+         
+           _unitOfWork.departmentRepository.Update(department);
+            _unitOfWork.Complete();
+
         }
     }
 }
