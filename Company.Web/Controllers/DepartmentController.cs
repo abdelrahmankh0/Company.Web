@@ -1,12 +1,10 @@
-﻿using Company.Data.Models;
-using Company.Repository.Repositories;
-using Company.Service.Interfaces;
-using Company.Service.Services;
+﻿using Company.Service.Interfaces;
+using Company.Service.Interfaces.Department.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Web.Controllers
 {
-    public class DepartmentController : Controller
+	public class DepartmentController : Controller
     {
         private readonly IDepartmentService _departmentService;
 
@@ -14,10 +12,11 @@ namespace Company.Web.Controllers
         {
             _departmentService = departmentService;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             var department = _departmentService.GetAll();
+           //  TempData.Keep("TextTempMessage");
             return View(department);
         }
         [HttpGet]
@@ -26,7 +25,7 @@ namespace Company.Web.Controllers
             return View();
         }
 
-        public IActionResult Create(Department department)
+        public IActionResult Create(DepartmentDto department)
         {
             try
             {
@@ -35,7 +34,10 @@ namespace Company.Web.Controllers
                 {
                     _departmentService.Add(department);
 
-                    return RedirectToAction(nameof(Index));
+					//TempData["TextTempMessage"] = "Hello From Employee index (TempData)";
+
+
+					return RedirectToAction(nameof(Index));
                 }
                 ModelState.AddModelError("DepartmentErrors", "ValidationErrors");
 
@@ -69,7 +71,7 @@ namespace Company.Web.Controllers
 		}
 
         [HttpPost]
-        public IActionResult Update(int? id,Department department)
+        public IActionResult Update(int? id,DepartmentDto department)
         {
             if(department.Id != id.Value)
 				return RedirectToAction("Not Found Page", null, "Home");

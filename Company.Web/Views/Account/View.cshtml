@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<h1>View</h1>
+<form asp-action="Login" method="post">
+<div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" class="form-control">
+</div>
+<div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" class="form-control">
+</div>
+<div class="Wthree-text">
+<label class="anim">
+    <input asp-for="RememberMe" class="Checkbox" />
+    <span>Keep me signed in</span>
+    
+   <</label>
+   </div>
+   <input type="submit" value="Login" />
+
+   </form>
