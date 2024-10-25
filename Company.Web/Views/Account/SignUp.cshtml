@@ -1,0 +1,36 @@
+﻿@model SignUpViewModel
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<h1>SignUp</h1>
+
+<div class="container">
+        <h2>SignUp</h2>
+        <form>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control">
+            </div>
+            <button type="submit">SignUp</button>
+            <p class="text-center">Already have an account? <a href="#">Login</a></p>
+        </form>
+    </div>
+
